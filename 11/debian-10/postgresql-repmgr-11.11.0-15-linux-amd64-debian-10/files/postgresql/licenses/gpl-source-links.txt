@@ -1,0 +1,1 @@
+psqlodbc-13.1.0,GPL2,https://ftp.postgresql.org/pub/odbc/versions/src/psqlodbc-13.01.0000.tar.gzpostgis-2.5.5,GPL2+,http://download.osgeo.org/postgis/source/postgis-2.5.5.tar.gz

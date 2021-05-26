@@ -1,0 +1,10 @@
+{
+    "id": "com.qingcloud.pgpool",
+    "name": "pgpool",
+    "revision": "0",
+    "author":     {
+        "name": "Qingcloud",
+        "url": "https://qingcloud.com"
+    },
+    "version": "4.2.2"
+}

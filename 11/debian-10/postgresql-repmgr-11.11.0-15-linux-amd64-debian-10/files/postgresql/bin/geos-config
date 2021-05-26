@@ -1,0 +1,75 @@
+#!/bin/sh
+prefix=/opt/qingcloud/postgresql
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+
+usage()
+{
+    cat <<EOF
+Usage: geos-config [OPTIONS]
+Options:
+     [--prefix]
+     [--version]
+     [--libs]
+     [--clibs]
+     [--cclibs]
+     [--static-clibs]
+     [--static-cclibs]
+     [--cflags]
+     [--ldflags]
+     [--includes]
+     [--jtsport]
+EOF
+    exit $1
+}
+if test $# -eq 0; then
+  usage 1 1>&2
+fi
+while test $# -gt 0; do
+case "$1" in
+    -*=*) optarg=`echo "$1" | sed 's/[-_a-zA-Z0-9]*=//'` ;;
+    *) optarg= ;;
+esac
+case $1 in
+    --prefix)
+    echo /opt/qingcloud/postgresql
+     ;;
+    --version)
+    echo 3.8.2
+     ;;
+    --cflags)
+    echo -I/opt/qingcloud/postgresql/include
+      ;;
+    --libs)
+      # TODO: make an alias for --clibs
+      # see http://trac.osgeo.org/geos/ticket/497
+      echo -L${exec_prefix}/lib -lgeos-3.8.2
+      ;;
+    --clibs)
+      echo -L${exec_prefix}/lib -lgeos_c
+      ;;
+    --cclibs)
+      echo -L${exec_prefix}/lib -lgeos
+      ;;
+    --static-clibs)
+      echo -L${exec_prefix}/lib -lgeos_c -lgeos -lm
+      ;;
+    --static-cclibs)
+      echo -L${exec_prefix}/lib -lgeos -lm
+      ;;
+    --ldflags)
+      echo -L${exec_prefix}/lib
+      ;;
+    --includes)
+      echo /opt/qingcloud/postgresql/include
+      ;;
+    --jtsport)
+    echo 1.13.0
+      ;;
+    *)
+      usage 1 1>&2
+      ;;
+  esac
+  shift
+done
+

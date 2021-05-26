@@ -1,0 +1,9 @@
+Name: libecpg_compat
+Description: PostgreSQL libecpg_compat library
+Url: http://www.postgresql.org/
+Version: 11.11
+Requires: 
+Requires.private: libecpg libpgtypes
+Cflags: -I/opt/qingcloud/postgresql/include
+Libs: -L/opt/qingcloud/postgresql/lib -lecpg_compat
+Libs.private: -L/opt/qingcloud/common/lib -L/opt/qingcloud/postgresql/lib -L/opt/qingcloud/repmgr/lib -lm

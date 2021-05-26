@@ -1,0 +1,37 @@
+apiVersion: v1
+entries:
+  postgresql-ha:
+  - annotations:
+      category: Database
+    apiVersion: v2
+    appVersion: 11.11.0
+    created: "2021-05-24T16:10:30.754288+08:00"
+    dependencies:
+    - name: common
+      repository: https://charts.qingcloud.com/qingcloud
+      version: 1.x.x
+    description: Chart for PostgreSQL with HA architecture (using Replication Manager (repmgr) and Pgpool).
+    digest: 69aa0417ad7a2d5d9f8ee8230e0149a62a4893b4121eb0d4b2fa1714b55c8bed
+    home: https://github.com/qingcloud/charts/tree/master/qingcloud/postgresql-ha
+    icon: https://xenondb.pek3b.qingstor.com/icons/radondb-mysql.svg
+    keywords:
+    - postgresql
+    - repmgr
+    - pgpool
+    - postgres
+    - database
+    - sql
+    - replication
+    - cluster
+    - high availability
+    maintainers:
+    - email: hualongzhong@qingcloud.com
+      name: Qingcloud
+    name: postgresql-ha
+    sources:
+    - https://github.com/zhl003/radondb-postgresql-kubernetes
+    - https://www.postgresql.org/
+    urls:
+    - https://zhl003.github.io/radondb-postgresql-kubernetes/postgresql-ha-1.0.0.tgz
+    version: 1.0.0
+generated: "2021-05-24T16:10:30.749571+08:00"

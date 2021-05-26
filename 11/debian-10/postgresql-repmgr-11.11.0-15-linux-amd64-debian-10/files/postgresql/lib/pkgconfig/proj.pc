@@ -1,0 +1,13 @@
+prefix=/opt/qingcloud/postgresql
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+datadir=${prefix}/share/proj
+
+Name: proj
+Description: Cartographic Projections Library.
+Requires:
+Version: 6.3.2
+Libs: -L${libdir} -lproj
+Libs.Private: -lsqlite3 -lstdc++
+Cflags: -I${includedir}
