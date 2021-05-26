@@ -1,0 +1,3 @@
+{{#each cronEntries}}
+{{this}}
+{{/each}}

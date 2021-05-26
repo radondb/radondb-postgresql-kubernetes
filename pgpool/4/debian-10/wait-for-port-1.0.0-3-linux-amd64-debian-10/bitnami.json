@@ -1,0 +1,23 @@
+{
+    "id": "com.qingcloud.wait-for-port",
+    "name": "wait-for-port",
+    "extends": ["Component"],
+    "author":     {
+        "name": "Qingcloud",
+        "url": "https://qingcloud.com"
+    },
+    "version": "1.0.0",
+    "revision": "3",
+    "installation":     {
+        "prefix": "common",
+        "packaging": {"components": [        {
+            "name": "wait-for-port",
+            "owner": "root",
+            "folders": [            {
+                "name": "wait-for-port",
+                "destination": "{{$app.installation.root}}",
+                "files": [{"origin": ["files/*"]}]
+            }]
+        }]}
+    }
+}

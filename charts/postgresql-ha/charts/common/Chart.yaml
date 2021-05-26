@@ -1,0 +1,23 @@
+annotations:
+  category: Infrastructure
+apiVersion: v2
+appVersion: 1.4.2
+description: A Library Helm Chart for grouping common logic between qingcloud charts.
+  This chart is not deployable by itself.
+home: https://github.com/qingcloud/charts/tree/master/qingcloud/common
+icon: https://qingcloud.com/downloads/logos/qingcloud-mark.png
+keywords:
+- common
+- helper
+- template
+- function
+- qingcloud
+maintainers:
+- email: containers@qingcloud.com
+  name: Qingcloud
+name: common
+sources:
+- https://github.com/qingcloud/charts
+- http://www.qingcloud.com/
+type: library
+version: 1.4.2

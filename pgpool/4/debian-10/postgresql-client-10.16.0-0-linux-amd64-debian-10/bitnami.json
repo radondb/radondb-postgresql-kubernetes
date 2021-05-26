@@ -1,0 +1,170 @@
+{
+    "id": "com.qingcloud.postgresql-client",
+    "name": "postgresql-client",
+    "extends": ["Component"],
+    "author":     {
+        "name": "Qingcloud",
+        "url": "https://qingcloud.com"
+    },
+    "version": "10.16",
+    "revision": "0",
+    "properties":     {
+        "host": {"default": "127.0.0.1"},
+        "port": {"default": 5432},
+        "socket": {"default": ""},
+        "databaseAdminUser":         {
+            "description": "Database admin user",
+            "default": "postgres"
+        },
+        "databaseAdminPassword":         {
+            "default": "",
+            "type": "password",
+            "description": "Database admin password"
+        },
+        "database":         {
+            "default": "",
+            "description": "Database to create"
+        },
+        "username":         {
+            "default": "",
+            "description": "Database user"
+        },
+        "password":         {
+            "default": "",
+            "type": "password",
+            "description": "Database password"
+        }
+    },
+    "exports":     {
+        "createDatabase":         {
+            "arguments": ["database"],
+            "options":             {
+                "user": {"default": "postgres"},
+                "password": {"default": ""},
+                "host": {"default": "127.0.0.1"},
+                "port": {"default": 5432},
+                "socket": {"default": ""}
+            }
+        },
+        "dropDatabase":         {
+            "arguments": ["database"],
+            "options":             {
+                "user": {"default": "postgres"},
+                "password": {"default": ""},
+                "host": {"default": "127.0.0.1"},
+                "port": {"default": 5432},
+                "socket": {"default": ""}
+            }
+        },
+        "createUser":         {
+            "arguments": ["username"],
+            "options":             {
+                "user": {"default": "postgres"},
+                "password": {"default": ""},
+                "host": {"default": "127.0.0.1"},
+                "port": {"default": 5432},
+                "socket": {"default": ""},
+                "newUserPassword": {"default": ""}
+            }
+        },
+        "dropUser":         {
+            "arguments": ["username"],
+            "options":             {
+                "user": {"default": "postgres"},
+                "password": {"default": ""},
+                "host": {"default": "127.0.0.1"},
+                "port": {"default": 5432},
+                "socket": {"default": ""}
+            }
+        },
+        "grantPrivileges":         {
+            "arguments":             [
+                "database",
+                "databaseUser"
+            ],
+            "options":             {
+                "user": {"default": "postgres"},
+                "password": {"default": ""},
+                "host": {"default": "127.0.0.1"},
+                "port": {"default": 5432},
+                "socket": {"default": ""},
+                "databaseUserPassword": {"default": ""}
+            }
+        },
+        "set":         {
+            "arguments":             [
+                "database",
+                "table",
+                "key",
+                "value"
+            ],
+            "options":             {
+                "user": {"default": "postgres"},
+                "password": {"default": ""},
+                "condition": {},
+                "host": {"default": "127.0.0.1"},
+                "port": {"default": 5432},
+                "socket": {"default": ""}
+            }
+        },
+        "get":         {
+            "arguments":             [
+                "database",
+                "table",
+                "key"
+            ],
+            "options":             {
+                "user": {"default": "postgres"},
+                "password": {"default": ""},
+                "condition": {},
+                "host": {"default": "127.0.0.1"},
+                "port": {"default": 5432},
+                "socket": {"default": ""}
+            }
+        },
+        "insert":         {
+            "arguments":             [
+                "database",
+                "table",
+                "data"
+            ],
+            "options":             {
+                "user": {"default": "postgres"},
+                "password": {"default": ""},
+                "host": {"default": "127.0.0.1"},
+                "port": {"default": 5432},
+                "socket": {"default": ""}
+            }
+        },
+        "execute":         {
+            "arguments": ["command"],
+            "options":             {
+                "user": {"default": "postgres"},
+                "password": {"default": ""},
+                "database": {"default": ""},
+                "host": {"default": "127.0.0.1"},
+                "port": {"default": 5432},
+                "socket": {"default": ""}
+            }
+        },
+        "checkConnection": {"options":         {
+            "user": {"default": "postgres"},
+            "password": {"default": ""},
+            "database": {"default": ""},
+            "host": {"default": "127.0.0.1"},
+            "port": {"default": 5432},
+            "socket": {"default": ""}
+        }}
+    },
+    "installation":     {
+        "prefix": "postgresql",
+        "packaging": {"components": [        {
+            "name": "postgresql",
+            "owner": "root",
+            "folders": [            {
+                "name": "postgresql-client",
+                "files": [{"origin": ["files/postgresql/*"]}]
+            }]
+        }]}
+    }
+}

@@ -1,0 +1,4 @@
+Name: nss_wrapper
+Description: The nss_wrapper library
+Version: 1.1.11
+Libs: /opt/qingcloud/common/lib/libnss_wrapper.so
