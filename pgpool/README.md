@@ -26,7 +26,7 @@ You can find the default credentials and available configuration options in the 
 
 # How to deploy Pgpool-II in Kubernetes?
 
-Deploying Qingcloud applications as Helm Charts is the easiest way to get started with our applications on Kubernetes. Read more about the installation in the [Qingcloud PostgreSQL HA Chart GitHub repository](https://github.com/qingcloud/charts/tree/master/qingcloud/postgresql-ha).
+Deploying Qingcloud applications as Helm Charts is the easiest way to get started with our applications on Kubernetes. Read more about the installation in the [Qingcloud PostgreSQL HA Chart GitHub repository](https://github.com/qingcloud/charts/tree/master/qingcloud/radondb).
 
 Qingcloud containers can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 

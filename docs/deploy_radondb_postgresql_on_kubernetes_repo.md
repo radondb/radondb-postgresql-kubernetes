@@ -42,10 +42,10 @@ $ helm repo update
 
 ### 步骤 2 : 部署
 
-以下命令指定 release 名为 `demo`，将在命名空间`demo`下创建一个名为 `pgha-postgresql-ha-pgpool` 的有状态副本集。
+以下命令指定 release 名为 `demo`，将在命名空间`demo`下创建一个名为 `pgha-radondb-pgpool` 的有状态副本集。
 
 ```bash
-$ helm install demo pgha/postgresql-ha -n demo
+$ helm install demo pgha/radondb -n demo
 NAME: demo
 LAST DEPLOYED: Wed May 19 06:13:27 2021
 NAMESPACE: demo
@@ -57,39 +57,39 @@ NOTES:
 
 PostgreSQL can be accessed through Pgpool via port 5432 on the following DNS name from within your cluster:
 
-    demo-postgresql-ha-pgpool.demo.svc.cluster.local
+    demo-radondb-pgpool.demo.svc.cluster.local
 
 Pgpool acts as a load balancer for PostgreSQL and forward read/write connections to the primary node while read-only connections are forwarded to standby nodes.
 
 To get the password for "postgres" run:
 
-    export POSTGRES_PASSWORD=$(kubectl get secret --namespace demo demo-postgresql-ha-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
+    export POSTGRES_PASSWORD=$(kubectl get secret --namespace demo demo-radondb-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
 
 To get the password for "repmgr" run:
 
-    export REPMGR_PASSWORD=$(kubectl get secret --namespace demo demo-postgresql-ha-postgresql -o jsonpath="{.data.repmgr-password}" | base64 --decode)
+    export REPMGR_PASSWORD=$(kubectl get secret --namespace demo demo-radondb-postgresql -o jsonpath="{.data.repmgr-password}" | base64 --decode)
 
 To connect to your database run the following command:
 
-    kubectl run demo-postgresql-ha-client --rm --tty -i --restart='Never' --namespace demo --image docker.io/zhonghl003/postgresql-repmgr:11.11.0-debian-r1 --env="PGPASSWORD=$POSTGRES_PASSWORD"  \
-        --command -- psql -h demo-postgresql-ha-pgpool -p 5432 -U postgres -d postgres
+    kubectl run demo-radondb-client --rm --tty -i --restart='Never' --namespace demo --image docker.io/zhonghl003/postgresql-repmgr:11.11.0-debian-r1 --env="PGPASSWORD=$POSTGRES_PASSWORD"  \
+        --command -- psql -h demo-radondb-pgpool -p 5432 -U postgres -d postgres
 
 To connect to your database from outside the cluster execute the following commands:
 
-    kubectl port-forward --namespace demo svc/demo-postgresql-ha-pgpool 5432:5432 &
+    kubectl port-forward --namespace demo svc/demo-radondb-pgpool 5432:5432 &
     psql -h 127.0.0.1 -p 5432 -U postgres -d postgres
 ```
 
-分别执行如下指令，查看到 `release` 名为 `demo` 的有状态副本集 `demo-postgresql-ha`，则 RadonDB PostgreSQL 部署成功。
+分别执行如下指令，查看到 `release` 名为 `demo` 的有状态副本集 `demo-radondb`，则 RadonDB PostgreSQL 部署成功。
 
 ```bash
 $ helm list -n demo
 NAME    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
-demo    demo            1               2021-05-19 06:13:27.219204491 +0000 UTC deployed        postgresql-ha-1.0.0     11.11.0   
+demo    demo            1               2021-05-19 06:13:27.219204491 +0000 UTC deployed        radondb-1.0.0     11.11.0   
 
 $ kubectl get statefulsets.apps -n demo
 NAME                            READY   AGE
-demo-postgresql-ha-postgresql   4/4     2m9s
+demo-radondb-postgresql   4/4     2m9s
 ```
 
 ### 步骤 3 : 部署校验
@@ -110,7 +110,7 @@ kubectl get statefulset,pod,svc -n demo
 
 - 连接 pgpool 节点(读写节点)。
    ```bash
-   psql -h <service demo-postgresql-ha-pgpool 名称> -p 5432 -U postgres -d postgres
+   psql -h <service demo-radondb-pgpool 名称> -p 5432 -U postgres -d postgres
    ```
 
 ### 与客户端不在同一 NS 中

@@ -52,7 +52,7 @@ git clone https://github.com/radondb/radondb-postgresql-kubernetes.git
 
 > release 是运行在 Kubernetes 集群中的 Chart 的实例。通过命令方式部署，需指定 release 名称。
 
-以下命令指定 release 名为 `demo`，将创建一个名为 `demo-postgresql-ha-postgresql` 的有状态副本集。
+以下命令指定 release 名为 `demo`，将创建一个名为 `demo-radondb-postgresql` 的有状态副本集。
 
 #### 默认部署方式
 
@@ -61,7 +61,7 @@ git clone https://github.com/radondb/radondb-postgresql-kubernetes.git
     helm install . --name demo
 
    <For Helm v3>
-    helm install demo charts/postgresql-ha
+    helm install demo charts/radondb
    ```
 
 #### 指定参数部署方式
@@ -76,7 +76,7 @@ git clone https://github.com/radondb/radondb-postgresql-kubernetes.git
   --set postgresql.password =  [POSTGRESQL_PASSWORD] \
   --set postgresql.repmgrPassword = [REPMGR_PASSWORD]
   --set postgresql.replicaCount = 3 \
-  charts/postgresql-ha
+  charts/radondb
   ```
 
 #### 配置 yaml 参数部署方式
@@ -106,7 +106,7 @@ kubectl get statefulset,pod,svc -n demo
 
 - 连接 pgpool 节点(读写节点)。
    ```bash
-   psql -h <service demo-postgresql-ha-pgpool 名称> -p 5432 -U postgres -d postgres
+   psql -h <service demo-radondb-pgpool 名称> -p 5432 -U postgres -d postgres
    ```
 
 ### 与客户端不在同一 NS 中
