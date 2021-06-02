@@ -41,7 +41,7 @@ RadonDB PostgreSQL 是基于 PostgreSQL 的开源、高可用、云原生集群�
 执行如下命令，将 RadonDB PostgreSQL Chart 克隆到 Kubernetes 中。
 
 ```bash
-git clone https://github.com/zhl003/radondb-postgresql-kubernetes.git
+git clone https://github.com/radondb/radondb-postgresql-kubernetes.git
 ```
 
 > Chart 代表 [Helm](https://helm.sh/zh/docs/intro/using_helm/) 包，包含在 Kubernetes 集群内部运行应用程序、工具或服务所需的所有资源定义。
