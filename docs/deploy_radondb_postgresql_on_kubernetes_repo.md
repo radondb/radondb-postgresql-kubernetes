@@ -1,76 +1,37 @@
-# **在 Kubernetes 上部署 RadonDB PostgreSQL 集群**
+Contents
+=================
 
-## **简介**
+- [在 Kubernetes 上通过 Helm Repo 部署 RadonDB PostgreSQL 集群](#在-kubernetes-上通过-helm-repo-部署-radondb-postgresql-集群)
+  - [简介](#简介)
+  - [部署准备](#部署准备)
+  - [部署步骤](#部署步骤)
+    - [步骤 1 : 添加仓库](#步骤-1--添加仓库)
+    - [步骤 2 : 部署](#步骤-2--部署)
+    - [步骤 3 : 部署校验](#步骤-3--部署校验)
+  - [访问 RadonDB PostgreSQL](#访问-radondb-postgresql)
+    - [与客户端在同一 NS 中](#与客户端在同一-ns-中)
+    - [与客户端不在同一 NS 中](#与客户端不在同一-ns-中)
+  - [配置](#配置)
+  - [持久化](#持久化)
+  - [自定义 PostgreSQL 配置](#自定义-postgresql-配置)
+
+# 在 Kubernetes 上通过 Helm Repo 部署 RadonDB PostgreSQL 集群
+
+## 简介
 
 RadonDB PostgreSQL 是基于 PostgreSQL 的开源、高可用、云原生集群解决方案。
-* 通过Pgpool-II代理PostgreSQL后端服务，用于减少Postgresql后端的连接开销，充当Postgresql的负载均衡器，增强了系统的整体吞吐量。
-* 通过repmgr实现PostgreSQL节点的故障转移。
+* 通过 Pgpool-II 代理 PostgreSQL 后端服务，用于减少 PostgreSQL 后端的连接消耗，针对 PostgreSQL 读写流量进行负载均衡，增强系统的整体吞吐量。
+* 通过 `repmgr` 实现 PostgreSQL 节点的故障转移。
 
 本教程演示如何使用命令行在 Kubernetes 上部署 RadonDB PostgreSQL。
 
-## **部署准备**
+## 部署准备
 
 - 已成功部署 Kubernetes 集群。
 
-## **部署步骤**
+## 部署步骤
 
-### **通过 Git 部署**
-
-#### **步骤 1：克隆 RadonDB PostgreSQL Chart**
-
-执行如下命令，将 RadonDB PostgreSQL Chart 克隆到 Kubernetes 中。
-
-```bash
-git clone https://github.com/zhl003/radondb-postgresql-kubernetes.git
-```
-
-> Chart 代表 [Helm](https://helm.sh/zh/docs/intro/using_helm/) 包，包含在 Kubernetes 集群内部运行应用程序、工具或服务所需的所有资源定义。
-
-#### **步骤 2：部署**
-
-在 radondb-postgresql-kubernetes 目录路径下，选择如下方式，部署 release 实例。
-
-> release 是运行在 Kubernetes 集群中的 Chart 的实例。通过命令方式部署，需指定 release 名称。
-
-以下命令指定 release 名为 `demo`，将创建一个名为 `demo-postgresql-ha-postgresql` 的有状态副本集。
-
-* **默认部署方式**
-
-   ```bash
-   <For Helm v2>
-    helm install . --name demo
-
-   <For Helm v3>
-    helm install demo charts/postgresql-ha
-  ```
-
-* **指定参数部署方式**
-
-  在 `helm install` 时使用 `--set key=value[,key=value]` ，可指定参数部署。
-  
-  以下示例以创建一个3副本的PostreSQL集群，并设置了Postgresql的访问密码。
-
-  ```bash
-  cd charts
-  helm install demo \
-  --set postgresql.password =  [POSTGRESQL_PASSWORD] \
-  --set postgresql.repmgrPassword = [REPMGR_PASSWORD]
-  --set postgresql.replicaCount = 3 \
-  charts/postgresql-ha
-  ```
-
-* **配置 yaml 参数方式**
-
-  执行如下命令，可通过 value.yaml 配置文件，在安装时配置指定参数。更多安装过程中可配置的参数，请参考 [配置](#配置) 。
-
-  ```bash
-  cd charts
-  helm install demo -f values.yaml .
-  ```
-
-### **通过 repo 部署**
-
-#### **步骤 1 : 添加仓库**
+### 步骤 1 : 添加仓库
 
 添加并更新 helm 仓库。
 
@@ -79,7 +40,7 @@ $ helm repo add pgha https://zhl003.github.io/radondb-postgresql-kubernetes
 $ helm repo update
 ```
 
-#### **步骤 2 : 部署**
+### 步骤 2 : 部署
 
 以下命令指定 release 名为 `demo`，将在命名空间`demo`下创建一个名为 `pgha-postgresql-ha-pgpool` 的有状态副本集。
 
@@ -131,7 +92,7 @@ NAME                            READY   AGE
 demo-postgresql-ha-postgresql   4/4     2m9s
 ```
 
-### **部署校验**
+### 步骤 3 : 部署校验
 
 部署指令执行完成后，查看 RadonDB PostgreSQL 有状态副本集，pod 状态及服务。可查看到相关信息，则 RadonDB PostgreSQL 部署成功。
 
@@ -139,25 +100,24 @@ demo-postgresql-ha-postgresql   4/4     2m9s
 kubectl get statefulset,pod,svc -n demo
 ```
 
-## **连接 RadonDB PostgreSQL**
+## 访问 RadonDB PostgreSQL
 
 您需要准备一个用于连接 RadonDB PostgreSQL 的客户端。
 
-### **客户端与 RadonDB PostgreSQL 在同一 NameSpace 中**
+### 与客户端在同一 NS 中
 
-当客户端与 RadonDB PostgreSQL 集群在同一个 NameSpace 中时，可使用 leader/follower service 名称代替具体的 ip 和端口。
+当客户端与 RadonDB PostgreSQL 集群在同一个 NameSpace 中时，可使用 Leader/Follower service 名称代替具体的 IP 和端口。
 
-- 连接pgpool节点(读写节点)。
+- 连接 pgpool 节点(读写节点)。
    ```bash
    psql -h <service demo-postgresql-ha-pgpool 名称> -p 5432 -U postgres -d postgres
    ```
 
-
-### **客户端与 RadonDB PostgreSQL 不在同一 NameSpace 中**
+### 与客户端不在同一 NS 中
 
 当客户端与 RadonDB PostgreSQL 集群不在同一个 NameSpace 中时，需先分别获取连接所需的节点地址、节点端口、服务名称。
 
-1. 查询 pod 列表和服务列表，分别获取 pod 名称和服务名称。
+1. 查询 Pod 列表和服务列表，分别获取 pod 名称和服务名称。
 
    ```bash
    kubectl get pod,svc
@@ -171,10 +131,10 @@ kubectl get statefulset,pod,svc -n demo
       kubectl edit svc <服务名称>
       ```
 
-3. 分别获取 pod 所在的节点地址和节点端口。
+3. 分别获取 Pod 所在的节点地址和节点端口。
 
    ```bash
-   kubectl describe pod <pod名称>
+   kubectl describe pod <Pod名称>
    ```
 
    ```bash
@@ -188,7 +148,7 @@ kubectl get statefulset,pod,svc -n demo
    ```
 
 
-## **配置**
+## 配置
 
 下表列出了 RadonDB PostgreSQL Chart 的配置参数及对应的默认值。
 
@@ -448,8 +408,6 @@ kubectl get statefulset,pod,svc -n demo
 | `networkPolicy.allowExternal`                   | Don't require client label for connections                                                                                                                                                      | `true`                                                       |        |
 
 ## 持久化  
-
-
 
 默认情况下，会创建一个 PersistentVolumeClaim 并将其挂载到指定目录中。 若想禁用此功能，您可以更改 `values.yaml` 禁用持久化，改用 emptyDir。 
 
