@@ -1,4 +1,4 @@
-FROM docker.io/zhonghl003/minideb:buster
+FROM docker.io/radondb/minideb:buster
 
 ENV HOME="/" \
     OS_ARCH="amd64" \

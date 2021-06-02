@@ -71,7 +71,7 @@ To get the password for "repmgr" run:
 
 To connect to your database run the following command:
 
-    kubectl run demo-radondb-client --rm --tty -i --restart='Never' --namespace demo --image docker.io/zhonghl003/postgresql-repmgr:11.11.0-debian-r1 --env="PGPASSWORD=$POSTGRES_PASSWORD"  \
+    kubectl run demo-radondb-client --rm --tty -i --restart='Never' --namespace demo --image docker.io/radondb/postgresql-repmgr:11.11.0-debian-r1 --env="PGPASSWORD=$POSTGRES_PASSWORD"  \
         --command -- psql -h demo-radondb-pgpool -p 5432 -U postgres -d postgres
 
 To connect to your database from outside the cluster execute the following commands:
