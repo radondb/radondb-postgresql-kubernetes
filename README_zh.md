@@ -37,4 +37,9 @@ RadonDB PostgreSQL 支持在 `Kubernetes` 和 `KubeSphere` 平台部署。
 
 RadonDB PostgreSQL 基于 Apache 2.0 协议，详见 [LICENSE](./LICENSE)。
 
+<p align="center">
+<br/><br/>
 如有任何关于 RadonDB PostgreSQL 的问题或建议，请在 GitHub 提交 Issue 反馈。
+<br/>
+</a>
+</p>
