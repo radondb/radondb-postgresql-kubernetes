@@ -37,4 +37,9 @@ RadonDB PostgreSQL supports [Kubernetes](https://kubernetes.io) or [KubeShpere](
 
 RadonDB PostgreSQL is released under the Apache 2.0, see [LICENSE](./LICENSE).
 
+<p align="center">
+<br/><br/>
 Please submit any RadonDB PostgreSQL bugs, issues, and feature requests to GitHub Issue.
+<br/>
+</a>
+</p>
