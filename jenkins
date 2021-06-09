@@ -146,7 +146,7 @@ pipeline {
         stage('Git clone and setup') {
             steps {
                 container('base')
-                echo "Check out postgresql-ha code"
+                echo "Check out radondb code"
                 git branch: "master",
                         credentialsId: 'github-id',
                         url: 'https://github.com/zhl003/radondb-postgresql-kubernetes.git'
@@ -238,7 +238,7 @@ pipeline {
 
                 echo "Packing helm chart"
                 // sh "${WORKSPACE}/build.sh --pack_helm --push_helm --helm_repo ${HELM_REPO} --helm_usr ${HELM_USR} --helm_psw ${HELM_PSW}"
-                sh 'helm package chars/postgresql-ha'
+                sh 'helm package chars/radondb'
                 sh 'helm repo index --url https://github.com/zhl003/helm-charts.git/'
                 echo "upload to helm repo"
 
