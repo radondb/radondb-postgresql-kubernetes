@@ -1,7 +1,9 @@
 
  ![](docs/images/logo_radondb.png)
  
- English | [中文](README_zh.md) 
+> English | [中文](README_zh.md) 
+
+----
 
 ## What is RadonDB PostgreSQL
 
